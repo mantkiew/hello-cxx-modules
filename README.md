@@ -1,14 +1,19 @@
 # Example of using C++ modules with clang and cmake on Linux
 
-An experiment with Ubuntu 24.04, CMake 3.30, and LLVM 18.
+An experiment with Ubuntu 24.04, CMake 3.30, and LLVM 18 showing:
 
-## Installing CMake 3.30.0-rc2 candidate (as of Jun 13, 2024)
+1. `import std;`
+2. `export module` and `import module` for `hello_lib`
+
+The software versions are as of Jun 13, 2024.
+
+## Installing CMake 3.30.0-rc2 candidate
 
 ```
 # snap install cmake --candidate
 ```
 
-## Installing LLVM 
+## Installing LLVM-18
 
 Based on https://apt.llvm.org/
 
@@ -21,11 +26,11 @@ Based on https://apt.llvm.org/
 ```
 $ cd hello-cxx-modules
 $ cmake -DCMAKE_BUILD_TYPE:STRING=MinSizeRel \
-		-DCMAKE_C_COMPILER:FILEPATH=/usr/bin/clang-18 \
-		-DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/clang++-18 \
-		-S . \
-		-B build \
-		-G Ninja
+        -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/clang-18 \
+        -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/clang++-18 \
+        -S . \
+        -B build \
+        -G Ninja
 Not searching for unused variables given on the command line.
 -- The CXX compiler identification is Clang 18.1.6
 -- Detecting CXX compiler ABI info
