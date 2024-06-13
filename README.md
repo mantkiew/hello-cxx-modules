@@ -20,7 +20,12 @@ Based on https://apt.llvm.org/
 ### Configure to use clang++-18
 ```
 $ cd hello-cxx-modules
-$ $ cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=MinSizeRel -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/clang-18 -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/clang++-18 -S . -B build -G Ninja
+$ cmake -DCMAKE_BUILD_TYPE:STRING=MinSizeRel \
+		-DCMAKE_C_COMPILER:FILEPATH=/usr/bin/clang-18 \
+		-DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/clang++-18 \
+		-S . \
+		-B build \
+		-G Ninja
 Not searching for unused variables given on the command line.
 -- The CXX compiler identification is Clang 18.1.6
 -- Detecting CXX compiler ABI info
@@ -83,5 +88,5 @@ $ ldd build/hello
 
 ## References
 
-[import CMake; the Experiment is Over!](https://www.kitware.com/import-cmake-the-experiment-is-over/)
-[import std in CMake 3.30](https://www.kitware.com/import-std-in-cmake-3-30/)
+* [import CMake; the Experiment is Over!](https://www.kitware.com/import-cmake-the-experiment-is-over/)
+* [import std in CMake 3.30](https://www.kitware.com/import-std-in-cmake-3-30/)
