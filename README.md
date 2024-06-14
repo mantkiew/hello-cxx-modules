@@ -20,7 +20,6 @@ $ command
 output
 ```
 
-
 ## Installing Ninja
 ```
 # apt-get install ninja-build
@@ -30,12 +29,8 @@ output
 
 ```
 # snap install cmake --candidate
-```
-
-**TIP**: VSCode does not work with snap version of cmake out-of-the box.
-Set `CMake Path` to `/snap/cmake/current/bin/cmake` in "CMake Tools Extension Settings" or in `settings.json`:
-```
-"cmake.cmakePath": "/snap/cmake/current/bin/cmake"
+$ cmake --version
+cmake version 3.30.0-rc2
 ```
 
 ## Installing clang and libc++
@@ -49,9 +44,7 @@ Thread model: posix
 InstalledDir: /usr/bin
 ```
 
-## Building
-
-### Configure to use clang++-18
+## Configuring toolchain
 
 It is important to set `-stdlib=libc++` for both the compiler and the linker so that GNU `libstdc++` is not used.
 Otherwise the following error occurs:
@@ -62,7 +55,11 @@ The "CXX_MODULE_STD" property on the target "hello_lib" requires that the
  
      Only `libc++` is supported
 ```
-Configure:
+This can be achieved using a toolchain file `clang-toolchain.cmake` to set the compiler and linker flags.
+
+## Building from command line
+
+### Configure
 ```
 $ cd hello-cxx-modules
 $ cmake --toolchain clang-toolchain.cmake \
@@ -116,7 +113,6 @@ Hello World! My name is Michał
 ```
 
 ### Check dependencies
-
 ```
 $ ldd build/hello
 	linux-vdso.so.1 (0x00007ffe07b9c000)
@@ -128,6 +124,28 @@ $ ldd build/hello
 	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007c04f3800000)
 	/lib64/ld-linux-x86-64.so.2 (0x00007c04f3e86000)
 ```
+
+## Building from VSCode 
+
+### Install CMake and CMake Tools extensions
+
+VSCode does not work with snap version of cmake out-of-the box.
+Set `CMake Path` to `/snap/cmake/current/bin/cmake` in "CMake Tools Extension Settings" or in `settings.json`:
+```
+"cmake.cmakePath": "/snap/cmake/current/bin/cmake"
+```
+
+### Configure the clang kit to use the toolchain file
+
+See `.vscode/cmake-kits.json`.
+
+### Configure and build
+
+Ensure the clang 18 kit is selected in Configure
+
+![CMake tool](cmake-tool.png)
+
+Build as usual.
 
 ## References
 
