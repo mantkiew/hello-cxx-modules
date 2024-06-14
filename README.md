@@ -5,20 +5,14 @@ An experiment with Ubuntu 24.04, CMake 3.30, and clang++ 18 showing:
 1. `import std;`
 2. `export module` and `import module` for `hello_lib`
 
-The software versions are as of Jun 13, 2024.
-Using `clang++-18` or later is necessary because `g++-14` does not yet have support for `import std;` yet.
+The software versions are as of Jun 14, 2024.
+Using `clang` 18 or later is necessary because `g++-14` does not have support for `import std;` yet.
 
 ### Conventions
-A command executed as `sudo`:
-```
-# command
-output
-```
-and as a user:
-```
-$ command
-output
-```
+
+| execute as `sudo`              | execute as a user              |
+|:-------------------------------|:-------------------------------|
+| <pre># command<br>output</pre> | <pre>$ command<br>output</pre> |
 
 ## Installing Ninja
 ```
