@@ -61,15 +61,11 @@ The "CXX_MODULE_STD" property on the target "hello_lib" requires that the
 Configure:
 ```
 $ cd hello-cxx-modules
-$ cmake -DCMAKE_BUILD_TYPE=MinSizeRel \
-        -DCMAKE_CXX_COMPILER=/usr/bin/clang++-18 \
-        -DCMAKE_CXX_FLAGS="-stdlib=libc++" \
-        -DCMAKE_EXE_LINKER_FLAGS="-stdlib=libc++" \
-        -DCMAKE_SHARED_LINKER_FLAGS="-stdlib=libc++" \
+$ cmake --toolchain clang-toolchain.cmake \
+        -G Ninja \
+        -DCMAKE_BUILD_TYPE=MinSizeRel \
         -S . \
-        -B build \
-        -G Ninja
-Not searching for unused variables given on the command line.
+        -B build
 -- The CXX compiler identification is Clang 18.1.6
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
@@ -81,7 +77,7 @@ CMake Warning (dev) at /snap/cmake/1395/share/cmake-3.30/Modules/Compiler/CMakeC
 Call Stack (most recent call first):
   /snap/cmake/1395/share/cmake-3.30/Modules/CMakeDetermineCompilerSupport.cmake:113 (cmake_create_cxx_import_std)
   /snap/cmake/1395/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake:83 (CMAKE_DETERMINE_COMPILER_SUPPORT)
-  CMakeLists.txt:15 (project)
+  CMakeLists.txt:13 (project)
 This warning is for project developers.  Use -Wno-dev to suppress it.
 
 -- Detecting CXX compile features - done

@@ -1,0 +1,11 @@
+[
+    {
+      "name": "Clang 18.1.6 x86_64-pc-linux-gnu",
+      "compilers": {
+        "C": "/usr/bin/clang-18",
+        "CXX": "/usr/bin/clang++-18"
+      },
+      "isTrusted": true,
+      "toolchainFile": "clang-toolchain.cmake"
+    }
+]
