@@ -8,6 +8,24 @@ An experiment with Ubuntu 24.04, CMake 3.30, and LLVM 18 showing:
 The software versions are as of Jun 13, 2024.
 Using `clang++-18` or later is necessary because `g++-14` does not yet have support for `import std;` yet.
 
+### Conventions
+A command executed as `sudo`:
+```
+# command
+output
+```
+and as a user:
+```
+$ command
+output
+```
+
+
+## Installing Ninja
+```
+# apt-get install ninja-build
+```
+
 ## Installing CMake 3.30.0-rc2 candidate
 
 ```
@@ -31,8 +49,8 @@ Based on https://apt.llvm.org/
 
 ### Configure to use clang++-18
 
-It is important to set `libc++` for both the compiler and the linker so that GNU libstdc++ is not used.
-Otherwise, 
+It is important to set `-stdlib=libc++` for both the compiler and the linker so that GNU `libstdc++` is not used.
+Otherwise the following error occurs:
 ```
 The "CXX_MODULE_STD" property on the target "hello_lib" requires that the
    "__CMAKE::CXX23" target exist, but it was not provided by the toolchain.
@@ -40,7 +58,7 @@ The "CXX_MODULE_STD" property on the target "hello_lib" requires that the
  
      Only `libc++` is supported
 ```
-
+Configure:
 ```
 $ cd hello-cxx-modules
 $ cmake -DCMAKE_BUILD_TYPE=MinSizeRel \
