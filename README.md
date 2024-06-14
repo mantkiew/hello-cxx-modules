@@ -6,6 +6,7 @@ An experiment with Ubuntu 24.04, CMake 3.30, and LLVM 18 showing:
 2. `export module` and `import module` for `hello_lib`
 
 The software versions are as of Jun 13, 2024.
+Using `clang++-18` or later is necessary because `g++-14` does not yet have support for `import std;` yet.
 
 ## Installing CMake 3.30.0-rc2 candidate
 
@@ -23,11 +24,24 @@ Based on https://apt.llvm.org/
 ## Building
 
 ### Configure to use clang++-18
+
+It is important to set `libc++` for both the compiler and the linker so that GNU libstdc++ is not used.
+Otherwise, 
+```
+The "CXX_MODULE_STD" property on the target "hello_lib" requires that the
+   "__CMAKE::CXX23" target exist, but it was not provided by the toolchain.
+   Reason:
+ 
+     Only `libc++` is supported
+```
+
 ```
 $ cd hello-cxx-modules
-$ cmake -DCMAKE_BUILD_TYPE:STRING=MinSizeRel \
-        -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/clang-18 \
-        -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/clang++-18 \
+$ cmake -DCMAKE_BUILD_TYPE=MinSizeRel \
+        -DCMAKE_CXX_COMPILER=/usr/bin/clang++-18 \
+        -DCMAKE_CXX_FLAGS="-stdlib=libc++" \
+        -DCMAKE_EXE_LINKER_FLAGS="-stdlib=libc++" \
+        -DCMAKE_SHARED_LINKER_FLAGS="-stdlib=libc++" \
         -S . \
         -B build \
         -G Ninja
@@ -54,7 +68,7 @@ This warning is for project developers.  Use -Wno-dev to suppress it.
 
 ### Build
 ```
-$ cmake --build build --config MinSizeRel --target all
+$ cmake --build build --target all
 [1/14] Scanning /.../hello-cxx-modules/hello_lib.cxx for CXX dependencies
 [2/14] Scanning /.../hello-cxx-modules/hello.cxx for CXX dependencies
 [3/14] Scanning /usr/lib/llvm-18/share/libc++/v1/std.compat.cppm for CXX dependencies

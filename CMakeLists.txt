@@ -6,11 +6,9 @@ set(CMAKE_EXPERIMENTAL_CXX_IMPORT_STD
 # required for `import std;`
 set(CMAKE_CXX_MODULE_STD ON)
 set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED YES)
 # required for `import hello_lib;`
 set(CMAKE_CXX_SCAN_FOR_MODULES ON)
-# important to set libc++ for both the compiler and the linker so that GNU libstdc++ is not used
-set(CMAKE_CXX_FLAGS "-stdlib=libc++")
-set(CMAKE_EXE_LINKER_FLAGS "-stdlib=libc++")
 
 project(hello-cxx-modules 
         VERSION 1.0.0
