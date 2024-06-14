@@ -1,12 +1,13 @@
-# Example of using C++ modules with clang and cmake on Linux
+# Example of using C++ modules with Clang and CMake on Linux
 
-An experiment with Ubuntu 24.04, CMake 3.30, and clang++ 18 showing:
+An experiment with Ubuntu 24.04, CMake 3.30, and Clang 18 showing:
 
 1. `import std;`
 2. `export module` and `import module` for `hello_lib`
 
-The software versions are as of Jun 14, 2024.
-Using `clang` 18 or later is necessary because `g++-14` does not have support for `import std;` yet.
+According to
+[cmake-cxxmodules(7), `import std` Support](https://cmake.org/cmake/help/latest/manual/cmake-cxxmodules.7.html#import-std-support),
+using `Clang` 18.1.2 or later is necessary (`g++-14` does not support `import std;`).
 
 ### Conventions
 
@@ -15,6 +16,7 @@ Using `clang` 18 or later is necessary because `g++-14` does not have support fo
 | <pre># command<br>output</pre> | <pre>$ command<br>output</pre> |
 
 ## Installing Ninja
+Ninja 1.11 or newer is required according to [cmake-cxxmodules(7), Generator Support](https://cmake.org/cmake/help/latest/manual/cmake-cxxmodules.7.html#generator-support). GNU `make` is not supported.
 ```
 # apt-get install ninja-build
 ```
@@ -27,7 +29,7 @@ $ cmake --version
 cmake version 3.30.0-rc2
 ```
 
-## Installing clang and libc++
+## Installing Clang and libc++
 
 ```
 # apt-get install clang libc++-dev
@@ -49,7 +51,7 @@ The "CXX_MODULE_STD" property on the target "hello_lib" requires that the
  
      Only `libc++` is supported
 ```
-This can be achieved using a toolchain file `clang-toolchain.cmake` to set the compiler and linker flags.
+The compiler and linker flags can be set in a toolchain file `clang-toolchain.cmake`.
 
 ## Building from command line
 
@@ -123,19 +125,19 @@ $ ldd build/hello
 
 ### Install CMake and CMake Tools extensions
 
-VSCode does not work with snap version of cmake out-of-the box.
+VSCode does not work with snap version of CMake out-of-the box.
 Set `CMake Path` to `/snap/cmake/current/bin/cmake` in "CMake Tools Extension Settings" or in `settings.json`:
 ```
 "cmake.cmakePath": "/snap/cmake/current/bin/cmake"
 ```
 
-### Configure the clang kit to use the toolchain file
+### Configure the Clang kit to use the toolchain file
 
 See `.vscode/cmake-kits.json`.
 
 ### Configure and build
 
-Ensure the clang 18 kit is selected in Configure
+Ensure the Clang 18 kit is selected in Configure
 
 ![CMake tool](cmake-tool.png)
 
