@@ -1,6 +1,6 @@
 # Example of using C++ modules with clang and cmake on Linux
 
-An experiment with Ubuntu 24.04, CMake 3.30, and LLVM 18 showing:
+An experiment with Ubuntu 24.04, CMake 3.30, and clang++ 18 showing:
 
 1. `import std;`
 2. `export module` and `import module` for `hello_lib`
@@ -38,12 +38,16 @@ Set `CMake Path` to `/snap/cmake/current/bin/cmake` in "CMake Tools Extension Se
 "cmake.cmakePath": "/snap/cmake/current/bin/cmake"
 ```
 
-## Installing LLVM-18
+## Installing clang and libc++
 
-Based on https://apt.llvm.org/
-
-1. `bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"`
-2. `apt-get install clang-format clang-tidy clang-tools clang clangd libc++-dev libc++1 libc++abi-dev libc++abi1 libclang-dev libclang1 iblldb-dev libllvm-ocaml-dev libomp-dev libomp5 lld lldb llvm-dev llvm-runtime llvm python3-clang`
+```
+# apt-get install clang libc++-dev
+# clang++ --version
+Ubuntu clang version 18.1.3 (1)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
+```
 
 ## Building
 
@@ -66,10 +70,10 @@ $ cmake --toolchain clang-toolchain.cmake \
         -DCMAKE_BUILD_TYPE=MinSizeRel \
         -S . \
         -B build
--- The CXX compiler identification is Clang 18.1.6
+-- The CXX compiler identification is Clang 18.1.3
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/bin/clang++-18 - skipped
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
 -- Detecting CXX compile features
 CMake Warning (dev) at /snap/cmake/1395/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake:248 (cmake_language):
   CMake's support for `import std;` in C++23 and newer is experimental.  It
