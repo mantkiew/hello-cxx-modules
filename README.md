@@ -14,6 +14,12 @@ Using `clang++-18` or later is necessary because `g++-14` does not yet have supp
 # snap install cmake --candidate
 ```
 
+**TIP**: VSCode does not work with snap version of cmake out-of-the box.
+Set `CMake Path` to `/snap/cmake/current/bin/cmake` in "CMake Tools Extension Settings" or in `settings.json`:
+```
+"cmake.cmakePath": "/snap/cmake/current/bin/cmake"
+```
+
 ## Installing LLVM-18
 
 Based on https://apt.llvm.org/
